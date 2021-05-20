@@ -22,21 +22,21 @@ func CheckErr(err error, execFatal bool) {
 	}
 }
 
-func ConfigDir() string {
+func GetSystemConfigDir() string {
 	var p, err = os.UserConfigDir()
 	CheckErr(err, true)
 
 	return p
 }
 
-func HomeDir() string {
+func GetSystemHomeDir() string {
 	var p, err = os.UserHomeDir()
 	CheckErr(err, true)
 
 	return p
 }
 
-func CacheDir() string {
+func GetSystemCacheDir() string {
 	var p, err = os.UserCacheDir()
 	CheckErr(err, true)
 

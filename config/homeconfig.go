@@ -6,7 +6,7 @@ import (
 )
 
 func SetupConfigFiles() {
-	var p = systemapp.ConfigDir()
+	var p = systemapp.GetSystemConfigDir()
 
 	fmt.Println(p)
 }
