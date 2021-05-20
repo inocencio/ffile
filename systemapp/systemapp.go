@@ -111,10 +111,30 @@ func WriteFile(fp string, fname string, content *string, ferror bool) {
 	CheckErr(err, ferror)
 }
 
-func WriteSliceSlice(fp string, fname string, content *[]string, ferror bool) {
+func WriteFileSlice(fp string, fname string, content *[]string, ferror bool) {
 	var fullpath = NormalizePath(fp, fname)
 
 	f, err := os.Create(fullpath)
+	CheckErr(err, ferror)
+	defer CloseFile(f, ferror)
+
+	for _, line := range *content {
+		_, err := f.WriteString(line)
+		CheckErr(err, ferror)
+	}
+}
+
+func WriteFileAppend(ffname string, content *string, ferror bool) {
+	f, err := os.OpenFile(ffname, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0664)
+	CheckErr(err, ferror)
+	defer CloseFile(f, ferror)
+
+	_, err = f.WriteString(*content)
+	CheckErr(err, ferror)
+}
+
+func WriteFileSliceAppend(ffname string, content *[]string, ferror bool) {
+	f, err := os.OpenFile(ffname, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0664)
 	CheckErr(err, ferror)
 	defer CloseFile(f, ferror)
 
